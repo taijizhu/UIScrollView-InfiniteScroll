@@ -20,7 +20,6 @@
 		5874FD7B191D5E080041FBF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5874FD7A191D5E080041FBF8 /* Main.storyboard */; };
 		5874FD7E191D5E6E0041FBF8 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5874FD7D191D5E6E0041FBF8 /* TableViewController.m */; };
 		5874FD81191E752B0041FBF8 /* StoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5874FD80191E752B0041FBF8 /* StoryModel.m */; };
-		5874FD84191E75410041FBF8 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5874FD83191E75410041FBF8 /* BrowserViewController.m */; };
 		5874FD88191E7EBF0041FBF8 /* UIScrollView+InfiniteScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 5874FD87191E7EBF0041FBF8 /* UIScrollView+InfiniteScroll.m */; };
 		587983EB1AD020C200D736C9 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 587983EA1AD020C200D736C9 /* PhotoViewController.m */; };
 		5898E55B1BC531C900DB2ECC /* UIScrollView+InfiniteScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 5874FD87191E7EBF0041FBF8 /* UIScrollView+InfiniteScroll.m */; };
@@ -62,8 +61,6 @@
 		5874FD7D191D5E6E0041FBF8 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		5874FD7F191E752B0041FBF8 /* StoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryModel.h; sourceTree = "<group>"; };
 		5874FD80191E752B0041FBF8 /* StoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryModel.m; sourceTree = "<group>"; };
-		5874FD82191E75410041FBF8 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewController.h; sourceTree = "<group>"; };
-		5874FD83191E75410041FBF8 /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewController.m; sourceTree = "<group>"; };
 		5874FD86191E7EBF0041FBF8 /* UIScrollView+InfiniteScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+InfiniteScroll.h"; path = "Classes/UIScrollView+InfiniteScroll.h"; sourceTree = SOURCE_ROOT; };
 		5874FD87191E7EBF0041FBF8 /* UIScrollView+InfiniteScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+InfiniteScroll.m"; path = "Classes/UIScrollView+InfiniteScroll.m"; sourceTree = SOURCE_ROOT; };
 		587983E91AD020C200D736C9 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
@@ -145,8 +142,6 @@
 				583DCB9D1A2776E60049577B /* CustomInfiniteIndicator.m */,
 				5874FD7C191D5E6E0041FBF8 /* TableViewController.h */,
 				5874FD7D191D5E6E0041FBF8 /* TableViewController.m */,
-				5874FD82191E75410041FBF8 /* BrowserViewController.h */,
-				5874FD83191E75410041FBF8 /* BrowserViewController.m */,
 				58A028681A741ECD00D79E2F /* CollectionViewController.h */,
 				58A028691A741ECD00D79E2F /* CollectionViewController.m */,
 				587983E91AD020C200D736C9 /* PhotoViewController.h */,
@@ -233,8 +228,12 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = codeispoetry.ru;
 				TargetAttributes = {
+					5848151E191D5D290019C583 = {
+						DevelopmentTeam = PR2A98QJ89;
+					};
 					5898E5411BC52C8600DB2ECC = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = PR2A98QJ89;
 					};
 				};
 			};
@@ -290,7 +289,6 @@
 				583DCB9E1A2776E60049577B /* CustomInfiniteIndicator.m in Sources */,
 				5874FD88191E7EBF0041FBF8 /* UIScrollView+InfiniteScroll.m in Sources */,
 				5865765D197D8CCF00E7AF20 /* UIApplication+NetworkIndicator.m in Sources */,
-				5874FD84191E75410041FBF8 /* BrowserViewController.m in Sources */,
 				58A0286D1A74305000D79E2F /* PhotoCell.m in Sources */,
 				5874FD81191E752B0041FBF8 /* StoryModel.m in Sources */,
 				5848152F191D5D290019C583 /* main.m in Sources */,
@@ -363,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -395,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -405,11 +403,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PR2A98QJ89;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = InfiniteScrollViewDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.codeispoetry.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Infinite Scroll";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -422,11 +420,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PR2A98QJ89;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = InfiniteScrollViewDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.codeispoetry.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Infinite Scroll";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -443,6 +441,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = PR2A98QJ89;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = InfiniteScrollViewDemo_tvOS/Info.plist;
@@ -452,7 +451,6 @@
 				PRODUCT_NAME = "Infinite Scroll";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -465,6 +463,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = PR2A98QJ89;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = InfiniteScrollViewDemo_tvOS/Info.plist;
@@ -474,7 +473,6 @@
 				PRODUCT_NAME = "Infinite Scroll";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};

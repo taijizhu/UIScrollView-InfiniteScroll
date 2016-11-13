@@ -64,7 +64,7 @@ static NSString *const kCellIdentifier = @"PhotoCell";
     }];
     
     // Load initial data
-    [self fetchData:nil];
+    [self.collectionView beginInfiniteScroll:YES];
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
@@ -96,6 +96,12 @@ static NSString *const kCellIdentifier = @"PhotoCell";
     
     // invalidate layout on rotation
     [self.collectionViewLayout invalidateLayout];
+}
+
+#pragma mark - Actions
+
+- (IBAction)handleRefresh {
+    [self.collectionView beginInfiniteScroll:YES];
 }
 
 #pragma mark - Private

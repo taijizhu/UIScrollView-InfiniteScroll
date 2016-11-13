@@ -39,7 +39,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             }
         }
         
-        fetchData(nil)
+        // load initial data
+        collectionView?.beginInfiniteScroll(true)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -233,4 +234,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         self.present(alert, animated: true, completion: nil)
     }
 
+}
+
+// MARK: - Actions
+
+extension CollectionViewController {
+    
+    @IBAction func handleRefresh() {
+        collectionView?.beginInfiniteScroll(true)
+    }
+    
 }
