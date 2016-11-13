@@ -191,6 +191,10 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
     state.initialized = NO;
 }
 
+- (void)beginInfiniteScroll:(BOOL)forceScroll {
+    [self pb_beginInfinitScrollIfNeeded:forceScroll];
+}
+
 - (void)finishInfiniteScroll {
     [self finishInfiniteScrollWithCompletion:nil];
 }
@@ -292,7 +296,7 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
  */
 - (void)pb_handlePanGesture:(UITapGestureRecognizer *)gestureRecognizer {
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        [self pb_scrollToInfiniteIndicatorIfNeeded:YES];
+        [self pb_scrollToInfiniteIndicatorIfNeeded:YES force:NO];
     }
 }
 
@@ -411,9 +415,33 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
 }
 
 /**
+ *  Update infinite scroll indicator's position in view.
+ *
+ *  @param forceScroll force scroll to indicator view
+ */
+- (void)pb_beginInfinitScrollIfNeeded:(BOOL)forceScroll {
+    _PBInfiniteScrollState *state = self.pb_infiniteScrollState;
+    
+    // already loading?
+    if(state.loading) {
+        return;
+    }
+    
+    TRACE(@"Action.");
+    
+    // Only show the infinite scroll if it is allowed
+    if([self pb_shouldShowInfiniteScroll]) {
+        [self pb_startAnimatingInfiniteScroll:forceScroll];
+        
+        // This will delay handler execution until scroll deceleration
+        [self performSelector:@selector(pb_callInfiniteScrollHandler) withObject:self afterDelay:0.1 inModes:@[ NSDefaultRunLoopMode ]];
+    }
+}
+
+/**
  *  Start animating infinite indicator
  */
-- (void)pb_startAnimatingInfiniteScroll {
+- (void)pb_startAnimatingInfiniteScroll:(BOOL)forceScroll {
     _PBInfiniteScrollState *state = self.pb_infiniteScrollState;
     UIView *activityIndicator = [self pb_getOrCreateActivityIndicatorView];
     
@@ -452,9 +480,22 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
     state.loading = YES;
     
     // Animate content insets
+    //
+    // @NOTE:
+    //
+    // If infinite scroll started while view was offscreen (i.e. from viewDidLoad)
+    // content insets may not be up to date yet which may lead to wrong offset after
+    // we finish animations (relevant to first call to -beginInfiniteScroll: which most likely
+    // will be used from viewDidLoad)
+    //
+    // UINavigationController and UITabBarController may update top and bottom insets
+    // during initial layout pass somewhere around viewWillAppear:
+    //
+    // This somehow should be taken into consideration
+    //
     [self pb_setScrollViewContentInset:contentInset animated:YES completion:^(BOOL finished) {
         if(finished) {
-            [self pb_scrollToInfiniteIndicatorIfNeeded:YES];
+            [self pb_scrollToInfiniteIndicatorIfNeeded:YES force:forceScroll];
         }
     }];
 
@@ -499,7 +540,7 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
         // Initiate scroll to the bottom if due to user interaction contentOffset.y
         // stuck somewhere between last cell and activity indicator
         if(finished) {
-            [self pb_scrollToInfiniteIndicatorIfNeeded:NO];
+            [self pb_scrollToInfiniteIndicatorIfNeeded:NO force:NO];
         }
         
         // Curtain is closing they're throwing roses at my feet
@@ -563,21 +604,8 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
         return;
     }
     
-    // did it kick in already?
-    if(state.loading) {
-        return;
-    }
-    
     if(contentOffset.y > actionOffset.y) {
-        TRACE(@"Action.");
-        
-        // Only show the infinite scroll if it is allowed
-        if([self pb_shouldShowInfiniteScroll]) {
-            [self pb_startAnimatingInfiniteScroll];
-            
-            // This will delay handler execution until scroll deceleration
-            [self performSelector:@selector(pb_callInfiniteScrollHandler) withObject:self afterDelay:0.1 inModes:@[ NSDefaultRunLoopMode ]];
-        }
+        [self pb_beginInfinitScrollIfNeeded:NO];
     }
 }
 
@@ -585,8 +613,9 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
  *  Scrolls down to activity indicator if it is partially visible
  *
  *  @param reveal scroll to reveal or hide activity indicator
+ *  @param force forces scroll to bottom
  */
-- (void)pb_scrollToInfiniteIndicatorIfNeeded:(BOOL)reveal {
+- (void)pb_scrollToInfiniteIndicatorIfNeeded:(BOOL)reveal force:(BOOL)force {
     // do not interfere with user
     if([self isDragging]) {
         return;
@@ -607,7 +636,7 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
     
     TRACE(@"minY = %.2f; maxY = %.2f; offsetY = %.2f", minY, maxY, self.contentOffset.y);
     
-    if(self.contentOffset.y > minY && self.contentOffset.y < maxY) {
+    if((self.contentOffset.y > minY && self.contentOffset.y < maxY) || force) {
         TRACE(@"Scroll to infinite indicator. Reveal: %@", reveal ? @"YES" : @"NO");
         [self setContentOffset:CGPointMake(0, reveal ? maxY : minY) animated:YES];
     }
